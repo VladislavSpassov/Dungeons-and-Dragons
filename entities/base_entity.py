@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 from helpers_and_utilities.verification_mixin import VerificationMixin
+from weapon import Weapon
+from spell import Spell
 
 
 class BaseEntity(ABC, VerificationMixin):
@@ -11,6 +13,8 @@ class BaseEntity(ABC, VerificationMixin):
         self.verify_value(mana)
         self.mana = mana
         self.MAX_MANA = mana
+        self.weapon = Weapon()
+        self.spell = Spell()
 
     def get_health(self):
         return self.health
@@ -23,7 +27,7 @@ class BaseEntity(ABC, VerificationMixin):
 
     # TODO IMPLEMENT WHEN CREATE CLASS SPELL
     def can_cast(self):
-        pass
+        return self.mana >= self.spell.mana_cost
 
     def take_damage(self, damage_points):
         self.verify_value(damage_points)
@@ -33,6 +37,8 @@ class BaseEntity(ABC, VerificationMixin):
             self.health = 0
 
     def take_healing(self, healing_points):
+        if self.health == 0:
+            return False
         self.verify_value(healing_points)
         self.health += healing_points
         self.health = self.verify_if_more_than_max(
@@ -46,3 +52,9 @@ class BaseEntity(ABC, VerificationMixin):
     @abstractmethod
     def attack(self):
         pass
+
+    def equip(self, weapon=None):
+        self.weapon = weapon
+
+    def learn(self, spell=None):
+        self.spell = spell
