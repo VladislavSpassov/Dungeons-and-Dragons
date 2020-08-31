@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from helpers_and_utilities.verfication_mixin import VerificationMixin
+from helpers_and_utilities.verification_mixin import VerificationMixin
 
 
 class BaseEntity(ABC, VerificationMixin):
