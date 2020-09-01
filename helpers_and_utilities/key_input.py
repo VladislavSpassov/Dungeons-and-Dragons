@@ -51,7 +51,7 @@ def get_key_input():
 
 
 def main():
-    for i in range(0, 20):
+    for _ in range(0, 20):
         print(get_key_input())
 
 
